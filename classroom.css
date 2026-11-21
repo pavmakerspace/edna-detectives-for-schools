@@ -257,3 +257,10 @@ a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid #ff
 
 .exp-head h2{font-size:clamp(1.65rem,3vw,2rem);line-height:1.2}
 .exp-head > p:last-child{margin:10px 0 0;max-width:none;color:var(--body)}
+/* Navigation typography inspired by the OceanX reference. */
+.nav{align-items:center;gap:28px;font-family:Arial,Helvetica,sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase}
+.nav a{color:var(--pale);padding:10px 0;text-decoration:none;white-space:nowrap}
+.nav a:hover{color:var(--cyan2)}
+.pip{font-family:Arial,Helvetica,sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--pale)}
+.pip b{font-family:Arial,Helvetica,sans-serif;font-size:.66rem;font-weight:600;letter-spacing:0}
+@media(max-width:620px){.nav{gap:20px;font-size:.7rem}.pip{font-size:.68rem;letter-spacing:.07em}}
