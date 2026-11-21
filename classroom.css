@@ -242,3 +242,18 @@ a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid #ff
   .chip{font-size:.75rem;padding:6px 10px}
   .dur{font-size:.65rem;padding:4px 8px}
 }
+
+/* A quieter introduction: one purpose and a simple three-step sequence. */
+.learning-purpose{max-width:58ch;margin:36px 0 0;padding-top:24px;border-top:1px solid var(--line)}
+.learning-purpose h2{color:var(--pale);font-size:1.12rem;margin:0 0 8px}
+.learning-purpose p{margin:0;color:var(--body)}
+.how{margin-top:54px}
+.steps3{gap:0;margin-top:20px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.step3{background:transparent;border:0;border-radius:0;padding:22px 20px 22px 0}
+.step3+.step3{border-left:1px solid var(--line);padding-left:20px}
+.step3 .num{width:auto;height:auto;border:0;display:block;text-align:left;font-size:.86rem;letter-spacing:.1em;margin-bottom:10px}
+.step3 p{max-width:24ch}
+@media(max-width:620px){.steps3{gap:0}.step3,.step3+.step3{padding:18px 0;border-left:0}.step3+.step3{border-top:1px solid var(--line)}.step3 p{max-width:none}}
+
+.exp-head h2{font-size:clamp(1.65rem,3vw,2rem);line-height:1.2}
+.exp-head > p:last-child{margin:10px 0 0;max-width:none;color:var(--body)}
