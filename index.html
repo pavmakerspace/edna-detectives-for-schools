@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#041738">
+<title>eDNA Detectives | Classroom Learning Experience</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#041738;        /* OceanX Blue */
+    --bg2:#020f28;
+    --panel:#0a2550;
+    --panel2:#0e2d60;
+    --line:#163864;
+    --cyan:#46B7D3;      /* OceanXplorer Blue */
+    --cyan2:#90E0EF;     /* OceanXplorer light */
+    --pale:#EAF7FA;
+    --body:#B4CBEA;
+    --muted:#6E86A8;
+    --sans:"Zeist N2","Zeist",Arial,Helvetica,sans-serif;
+    --mono:"DM Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --display:"Big Shoulders Display","Zeist N2",Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  body{
+    margin:0;color:var(--body);font-family:var(--sans);
+    font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;
+    background-color:var(--bg);
+    background-image:
+      radial-gradient(120% 60% at 50% 0%, rgba(0,78,168,.5) 0%, rgba(4,23,56,0) 62%),
+      radial-gradient(100% 70% at 50% 100%, #05193f 0%, var(--bg2) 100%);
+    background-repeat:no-repeat;background-attachment:fixed;
+  }
+  /* starfield */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      radial-gradient(1.2px 1.2px at 24px 38px, rgba(255,255,255,.55), transparent),
+      radial-gradient(1px 1px at 120px 90px, rgba(255,255,255,.35), transparent),
+      radial-gradient(1.4px 1.4px at 210px 150px, rgba(160,210,240,.5), transparent),
+      radial-gradient(1px 1px at 70px 200px, rgba(255,255,255,.3), transparent),
+      radial-gradient(1.1px 1.1px at 260px 50px, rgba(255,255,255,.4), transparent),
+      radial-gradient(1px 1px at 300px 240px, rgba(180,220,245,.35), transparent);
+    background-size:320px 300px;opacity:.6;
+  }
+  .wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 24px 110px}
+
+  /* top bar */
+  .top{display:flex;align-items:center;justify-content:space-between;padding:22px 0 10px;gap:16px}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:700;color:var(--pale);font-size:.98rem}
+  .brand .ox{font-size:.72rem;letter-spacing:.14em;color:var(--cyan2);font-weight:700;line-height:1.05}
+  .brand .bar{width:1px;height:26px;background:var(--line)}
+  .nav{display:flex;gap:18px;font-size:.9rem}
+  .nav a{color:var(--body);text-decoration:none}
+  .nav a:hover{color:var(--cyan2)}
+
+  /* pip nav */
+  .pips{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 6px}
+  .pip{display:flex;align-items:center;gap:9px;padding:7px 14px 7px 9px;border:1px solid var(--line);border-radius:999px;text-decoration:none;color:var(--body);font-size:.86rem}
+  .pip:hover{border-color:var(--cyan)}
+  .pip b{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;border:1px solid var(--cyan);color:var(--cyan2);font-size:.74rem;font-variant-numeric:tabular-nums}
+
+  /* hero */
+  .hero{position:relative;padding:40px 0 10px}
+  .helix{position:absolute;top:20px;right:-6px;width:92px;height:280px;opacity:.5;pointer-events:none}
+  .eyebrow{font-size:.74rem;letter-spacing:.26em;color:var(--cyan2);font-weight:700;margin:0 0 20px;text-transform:uppercase}
+  .dq{font-size:clamp(2.1rem,6.2vw,3.2rem);line-height:1.08;letter-spacing:-.015em;color:var(--pale);font-weight:600;margin:0 0 26px;max-width:15ch}
+  .chips{display:flex;flex-wrap:wrap;gap:9px;margin:0 0 28px}
+  .chip{padding:7px 15px;border:1px solid var(--line);border-radius:999px;font-size:.82rem;color:var(--cyan2);background:rgba(76,196,232,.05)}
+  .lede{font-size:1.1rem;color:var(--body);max-width:52ch;margin:0 0 10px}
+  .lede b{color:var(--pale);font-weight:600}
+  .intro{margin:2px 0 0}
+  .intro .lead{font-size:clamp(1.34rem,3.6vw,1.78rem);line-height:1.28;color:var(--pale);font-weight:500;letter-spacing:-.012em;margin:0;max-width:24ch}
+  .intro .sub{font-size:1.06rem;color:var(--body);margin:14px 0 0;max-width:48ch}
+  .term{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px 18px;margin:26px 0 0;padding-top:20px;border-top:1px solid var(--line)}
+  .term .abbr{font-size:2.15rem;font-weight:700;color:var(--cyan2);line-height:1;letter-spacing:.005em}
+  .term .gloss{font-size:.95rem;color:var(--muted);max-width:38ch}
+  .how{margin:58px 0 0}
+  .steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+  .step3{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px 20px}
+  .step3 .num{margin-bottom:12px}
+  .step3 h3{color:var(--pale);font-size:1.12rem;font-weight:600;margin:0 0 6px}
+  .step3 p{color:var(--body);font-size:.95rem;margin:0;line-height:1.5}
+
+  /* do think feel */
+  .dtf{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:30px 0 8px}
+  .dtf .cell{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .dtf h3{margin:0 0 7px;font-size:.78rem;letter-spacing:.18em;color:var(--cyan2);text-transform:uppercase}
+  .dtf p{margin:0;font-size:.94rem;color:var(--body);line-height:1.5}
+
+  /* buttons */
+  .btns{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 6px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:999px;font-size:.95rem;font-weight:600;text-decoration:none;border:1.5px solid var(--cyan);transition:background .15s}
+  .btn.solid{background:var(--cyan);color:#04163a}
+  .btn.solid:hover{background:var(--cyan2)}
+  .btn.ghost{background:transparent;color:var(--cyan2)}
+  .btn.ghost:hover{background:rgba(76,196,232,.1)}
+
+  /* section intro */
+  .exp-head{margin:66px 0 4px}
+  .exp-head .eyebrow{margin-bottom:10px}
+  .exp-head h2{font-size:1.9rem;color:var(--pale);font-weight:600;margin:0;letter-spacing:-.01em}
+
+  /* stage */
+  .stage{margin-top:30px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:26px 24px}
+  .stage-top{display:flex;align-items:center;gap:14px;margin-bottom:4px}
+  .num{flex:0 0 auto;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--cyan);display:flex;align-items:center;justify-content:center;color:var(--cyan2);font-weight:700;font-size:1.05rem;font-variant-numeric:tabular-nums}
+  .stage-label{font-size:.76rem;letter-spacing:.2em;color:var(--cyan2);text-transform:uppercase;font-weight:700}
+  .stage-title{font-size:1.32rem;color:var(--pale);font-weight:600;margin:2px 0 0;letter-spacing:-.01em}
+  .dur{margin-left:auto;flex:0 0 auto;font-size:.72rem;letter-spacing:.1em;color:var(--cyan2);border:1px solid var(--line);border-radius:999px;padding:5px 12px;text-transform:uppercase;font-weight:600}
+  .stage-lead{color:var(--pale);font-weight:500;margin:16px 0 0}
+  .stage p{margin:12px 0 0}
+  .q{list-style:none;margin:14px 0 0;padding:0}
+  .q li{position:relative;padding:0 0 0 22px;margin:0 0 9px;color:var(--body)}
+  .q li::before{content:"";position:absolute;left:2px;top:.62em;width:7px;height:7px;border-radius:50%;background:var(--cyan)}
+  .q li:last-child{margin-bottom:0}
+
+  /* low-tech note */
+  .access-note{margin:16px 0 0;padding:12px 15px;border-left:3px solid var(--cyan);background:rgba(70,183,211,.08);border-radius:0 10px 10px 0;font-size:.9rem;color:var(--body)}
+  .access-note b{color:var(--pale);font-weight:600}
+
+  /* trace tokens (echo of the game's circular evidence nodes) */
+  .traces{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0 0}
+  .trace{width:84px;height:84px;border-radius:50%;border:1px solid var(--cyan);display:flex;align-items:center;justify-content:center;text-align:center;font-size:.78rem;color:var(--cyan2);background:radial-gradient(circle at 50% 35%, rgba(70,183,211,.18), rgba(10,37,80,.25));padding:8px;line-height:1.2}
+
+  /* habitat gloss grid inside Create */
+  .habs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 0}
+  .hab{background:rgba(4,23,56,.45);border:1px solid var(--line);border-radius:12px;padding:11px 14px}
+  .hab b{display:block;color:var(--pale);font-size:.92rem;font-weight:600}
+  .hab span{display:block;color:var(--body);font-size:.84rem;line-height:1.4;margin-top:2px}
+
+  /* criteria */
+  .crit{list-style:none;margin:16px 0 0;padding:0}
+  .crit li{position:relative;padding:12px 0 12px 34px;border-top:1px solid var(--line);color:var(--body)}
+  .crit li:first-child{border-top:0}
+  .crit li::before{content:"";position:absolute;left:4px;top:1.15em;width:14px;height:14px;border-radius:50%;border:1.5px solid var(--cyan)}
+  .crit b{color:var(--pale);font-weight:600}
+  .swap{margin:16px 0 0;color:var(--cyan2);font-style:italic}
+
+  /* video slots */
+  .videos{display:flex;flex-direction:column;gap:16px;margin:18px 0 0}
+  .vidwrap{position:relative;width:100%;padding-bottom:56.25%;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#000}
+  .vidwrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+  .vid{aspect-ratio:16/9;border:1px dashed var(--line);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--muted);background:rgba(10,34,56,.4);font-size:.84rem}
+  .vid .play{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--cyan);display:flex;align-items:center;justify-content:center;color:var(--cyan2)}
+
+  /* resources */
+  .res-head{margin:70px 0 0}
+  .res-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:22px 0 0}
+  .res{display:block;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;text-decoration:none;transition:border-color .15s}
+  .res:hover{border-color:var(--cyan)}
+  .res .src{font-size:.74rem;letter-spacing:.12em;color:var(--cyan2);text-transform:uppercase;font-weight:700}
+  .res h3{color:var(--pale);font-size:1.08rem;font-weight:600;margin:8px 0 6px}
+  .res p{color:var(--body);font-size:.92rem;margin:0}
+
+  /* cross link */
+  .cross{margin:28px 0 0;background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:18px;padding:28px 24px;text-align:center}
+  .cross h2{color:var(--pale);font-size:1.3rem;font-weight:600;margin:0 0 6px}
+  .cross p{color:var(--body);margin:0 auto 18px;max-width:46ch}
+  .cross .links{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+
+  /* footer */
+  .foot{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:.88rem;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .foot .ox{font-size:.72rem;letter-spacing:.14em;color:var(--cyan2);font-weight:700;line-height:1.05}
+
+  /* brand typography: DM Mono for tags/metadata, Big Shoulders for numbers */
+  /* Brand fix: Section Tags / Kickers are Zeist N2 Bold, not DM Mono. DM Mono kept only for small chips/metadata (durations, chips, source tags). */
+  .dur,.chip,.src{font-family:var(--mono);font-weight:500}
+  .eyebrow,.stage-label,.ox,.dtf h3{font-family:var(--sans);font-weight:700}
+  .num,.pip b{font-family:var(--display);font-weight:700}
+
+  a:focus-visible,.pip:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+
+  @media (max-width:620px){
+    body{font-size:16px}
+    .wrap{padding:0 18px 84px}
+    .nav{display:none}
+    .helix{display:none}
+    .dtf{grid-template-columns:1fr;gap:12px}
+    .videos{grid-template-columns:1fr}
+    .steps3{grid-template-columns:1fr}
+    .habs{grid-template-columns:1fr}
+    .res-grid{grid-template-columns:1fr}
+    .dq{max-width:20ch}
+    .stage{padding:22px 18px}
+    .dur{order:3;margin-left:58px;margin-top:-6px}
+    .stage-top{flex-wrap:wrap}
+  }
+
+  /* collapsible stages */
+  details.stage{padding:0;overflow:hidden}
+  summary.stage-top{list-style:none;cursor:pointer;padding:24px;margin-bottom:0;outline:none}
+  summary.stage-top::-webkit-details-marker{display:none}
+  summary.stage-top::marker{content:""}
+  summary.stage-top:hover .stage-title{color:var(--cyan2)}
+  .chev{margin-left:14px;color:var(--cyan2);font-size:.9rem;transition:transform .2s ease;flex:0 0 auto}
+  details[open] .chev{transform:rotate(180deg)}
+  .stage-body{padding:0 24px 26px}
+  @media (max-width:620px){
+    summary.stage-top{padding:18px}
+    .stage-body{padding:0 18px 20px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- top bar -->
+  <header class="top">
+    <div class="brand">
+      <span class="ox">OCEANX<br>EDUCATION</span>
+      <span class="bar"></span>
+      <span>eDNA Detectives</span>
+    </div>
+    <nav class="nav">
+      <a href="#journey">Journey</a>
+      <a href="#resources">Resources</a>
+    </nav>
+  </header>
+
+  <div class="pips">
+    <a class="pip" href="#step-1"><b>01</b> Explore</a>
+    <a class="pip" href="#step-2"><b>02</b> Investigate</a>
+    <a class="pip" href="#step-3"><b>03</b> Reflect</a>
+    <a class="pip" href="#step-4"><b>04</b> Create</a>
+  </div>
+
+  <!-- hero -->
+  <section class="hero">
+    <svg class="helix" viewBox="0 0 120 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M60,0 C95,33 95,67 60,100 C25,133 25,167 60,200 C95,233 95,267 60,300 C25,333 25,367 60,400" stroke="#46B7D3" stroke-width="2"/>
+      <path d="M60,0 C25,33 25,67 60,100 C95,133 95,167 60,200 C25,233 25,267 60,300 C95,333 95,367 60,400" stroke="#90E0EF" stroke-width="2"/>
+      <line x1="38" y1="50" x2="82" y2="50" stroke="#46B7D3" stroke-width="1.4"/>
+      <line x1="38" y1="150" x2="82" y2="150" stroke="#46B7D3" stroke-width="1.4"/>
+      <line x1="38" y1="250" x2="82" y2="250" stroke="#46B7D3" stroke-width="1.4"/>
+      <line x1="38" y1="350" x2="82" y2="350" stroke="#46B7D3" stroke-width="1.4"/>
+    </svg>
+    <p class="eyebrow">OceanX Education</p>
+    <h1 class="dq">How Do You Find a Creature Without Ever Seeing It?</h1>
+    <div class="chips">
+      <span class="chip">For learners and educators</span>
+      <span class="chip">High school</span>
+      <span class="chip">60–75 minutes</span>
+    </div>
+    <div class="intro">
+      <p class="lead">Every creature leaves a trace of its DNA in the water.</p>
+      <p class="sub">Scientists can collect water or mud from rivers, ponds and oceans and analyse it for DNA traces. A match can provide evidence of a species, including one that is difficult to observe.</p>
+      <p class="term"><span class="abbr">eDNA</span><span class="gloss">environmental DNA: DNA that living things leave in their surroundings.</span></p>
+    </div>
+
+    <h2 class="eyebrow" style="margin:40px 0 0">Learning intention</h2>
+    <p class="lede" style="margin-top:12px">Understand how scientists detect hidden life in water from the traces it leaves, and use evidence to identify what cannot be seen.</p>
+
+    <div class="dtf">
+      <div class="cell"><h3>Do</h3><p>Use traces and habitat clues to identify a hidden creature and explain how sure you are.</p></div>
+      <div class="cell"><h3>Think</h3><p>Scientists use eDNA to look for signs of living things and study the variety of life in a place. A clue can support an idea without proving it.</p></div>
+      <div class="cell"><h3>Feel</h3><p>Curiosity about hidden life in our rivers, coasts and deep seas, and why protecting water ecosystems matters.</p></div>
+    </div>
+
+    <div class="btns">
+      <a class="btn solid" href="edna-learner-activity.html" target="_blank" rel="noopener" data-slot="learner-activity">View Learner Activity</a>
+      <a class="btn ghost" href="edna-educator-guide.html" target="_blank" rel="noopener" data-slot="educator-guide">View Educator Guide</a>
+    </div>
+  </section>
+
+  <!-- how eDNA works -->
+  <section class="how">
+    <p class="eyebrow">How eDNA works</p>
+    <div class="steps3">
+      <div class="step3">
+        <div class="num">01</div>
+        <h3>Shed</h3>
+        <p>Every creature sheds DNA into the water and onto the bed below through skin, mucus, scales and waste.</p>
+      </div>
+      <div class="step3">
+        <div class="num">02</div>
+        <h3>Collect</h3>
+        <p>Scientists collect a sample of water or mud, tagging the exact depth and place it came from.</p>
+      </div>
+      <div class="step3">
+        <div class="num">03</div>
+        <h3>Read</h3>
+        <p>In the lab, they separate DNA from the sample and compare it with a library of DNA from known species.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- the experience -->
+  <div class="exp-head" id="journey">
+    <p class="eyebrow">The experience</p>
+    <h2>Explore. Investigate. Reflect. Create.</h2>
+  </div>
+
+  <!-- 01 -->
+  <details class="stage" id="step-1" open>
+    <summary class="stage-top">
+      <div class="num">01</div>
+      <div>
+        <div class="stage-label">Explore</div>
+        <div class="stage-title">Enter the deep</div>
+      </div>
+      <span class="dur">15 mins</span>
+        <span class="chev" aria-hidden="true">▾</span>
+      </summary>
+      <div class="stage-body">
+        <p class="stage-lead">Get curious about the life hidden in a few litres of water.</p>
+    <p><b>Teacher:</b> Each clip has a question linked to a different part of the learner activity. Play each clip or a relevant excerpt before the linked activity, and pause for students to discuss their observations. Preview clips, captions and running times when planning the lesson.</p>
+    <div class="videos">
+      <div><h3>On Mission: eDNA — Observe the process</h3><p><b>Watch for:</b> What do you notice about how a sample is collected or handled? <b>Then:</b> Use your observation to help put the survey steps in order in Task 1.</p><div class="vidwrap"><iframe src="https://www.youtube.com/embed/iMCZAcLaHKE" title="On Mission: eDNA (OceanX)" allowfullscreen loading="lazy"></iframe></div></div>
+      <div><h3>What is eDNA — Explain the clue</h3><p><b>Watch for:</b> How can DNA left in the environment help scientists investigate life? <b>Then:</b> Explain how the evidence differs from seeing an animal, before tackling Task 3.</p><div class="vidwrap"><iframe src="https://www.youtube.com/embed/C0H8MNi3t-c" title="What is eDNA" allowfullscreen loading="lazy"></iframe></div></div>
+      <div><h3>Citizens of the Sea — Connect to a survey</h3><p><b>Watch for:</b> Who takes part in collecting information, and why might sampling in different places be useful? <b>Then:</b> Use one idea to explain where your group would take samples in Task 4.</p><div class="vidwrap"><iframe src="https://www.youtube.com/embed/j-yh_srFEMk" title="Citizens of the Sea" allowfullscreen loading="lazy"></iframe></div></div>
+    </div>
+    <p><b>No video?</b> Read the worksheet’s “How eDNA works” section together. Ask: Where would you sample and why? Students can complete every task using the worksheet and class discussion.</p>
+      </div>
+  </details>
+
+  <!-- 02 -->
+  <details class="stage" id="step-2">
+    <summary class="stage-top">
+      <div class="num">02</div>
+      <div>
+        <div class="stage-label">Investigate</div>
+        <div class="stage-title">Follow the evidence</div>
+      </div>
+      <span class="dur">15 mins</span>
+        <span class="chev" aria-hidden="true">▾</span>
+      </summary>
+      <div class="stage-body">
+        <p class="stage-lead">Play through the lens of a scientist.</p>
+    <p>Play eDNA Detectives on your own device, in pairs, or together as a whole class on one shared screen. Examine the eDNA traces in the water and combine them with habitat clues to work out what is hiding below.</p>
+    <div class="traces">
+      <span class="trace">Blood from injury</span>
+      <span class="trace">Waste</span>
+      <span class="trace">Squid ink</span>
+      <span class="trace">Mucus &amp; skin</span>
+    </div>
+    <div class="btns">
+      <a class="btn solid" href="https://edna-detectives.oceanx.org/" target="_blank" rel="noopener">Play eDNA Detectives →</a>
+    </div>
+    <p class="access-note"><b>Same case, on paper.</b> <b>Task 2</b> on the Learner Activity turns the game's deduction into a printed puzzle every group can solve with the sheet alone.</p>
+    <p>As you investigate, ask:</p>
+    <ul class="q">
+      <li>What kinds of traces reveal that a creature has been here?</li>
+      <li>Why is one trace not enough to identify it?</li>
+      <li>How does a habitat clue rule a creature out?</li>
+    </ul>
+      </div>
+  </details>
+
+  <!-- 03 -->
+  <details class="stage" id="step-3">
+    <summary class="stage-top">
+      <div class="num">03</div>
+      <div>
+        <div class="stage-label">Reflect</div>
+        <div class="stage-title">How sure can you be?</div>
+      </div>
+      <span class="dur">15 mins</span>
+        <span class="chev" aria-hidden="true">▾</span>
+      </summary>
+      <div class="stage-body">
+        <p class="stage-lead">Make sense of the evidence.</p>
+    <p>In the game and case file, you found one clear answer. Real eDNA is messier. In one famous test, a tank's water showed fish that were never in it, the DNA came from their food. Currents move water, DNA fades, and some species are not yet in the reference library. Complete <b>Task 3</b>, discuss how sure you are and suggest another way to check.</p>
+    <ul class="q">
+      <li>What did the evidence let you rule out, and what stayed uncertain?</li>
+      <li>When would one trace not be enough to be sure?</li>
+      <li>What are you now curious to investigate further?</li>
+    </ul>
+      </div>
+  </details>
+
+  <!-- 04 -->
+  <details class="stage" id="step-4">
+    <summary class="stage-top">
+      <div class="num">04</div>
+      <div>
+        <div class="stage-label">Create</div>
+        <div class="stage-title">eDNA in the real world</div>
+      </div>
+      <span class="dur">15 mins</span>
+        <span class="chev" aria-hidden="true">▾</span>
+      </summary>
+      <div class="stage-body">
+        <p class="stage-lead">Plan how scientists could use eDNA to check on a real habitat.</p>
+    <p>In groups of 2–3, use <b>Task 4</b> on your Learner Activity. Choose one habitat below, either a water body near you or an ocean habitat:</p>
+    <div class="habs">
+      <div class="hab"><b>Local river, lake or pond</b><span>Fresh water near your school, town or region.</span></div>
+      <div class="hab"><b>Coral reef</b><span>Warm, shallow underwater rock gardens packed with sea life.</span></div>
+      <div class="hab"><b>Mangrove</b><span>Coastal trees whose roots grow right in salty tidal water.</span></div>
+      <div class="hab"><b>Seagrass meadow</b><span>Underwater flowering plants along shallow, sunlit coasts.</span></div>
+      <div class="hab"><b>The deep sea</b><span>Cold, pitch-dark ocean waters far below the reach of sunlight.</span></div>
+    </div>
+    <ul class="crit">
+      <li><b>What it could find:</b> which species will you investigate, and where and when will you sample?</li>
+      <li><b>What it can't tell:</b> name one thing the eDNA could not tell you (exact count, present location, timing, or an identification missing from the reference library), and why to be careful.</li>
+      <li><b>Why it matters:</b> how could knowing what lives here help protect it?</li>
+    </ul>
+    <p>Give a one-minute explanation of your sampling plan, what it cannot tell you, and how your findings could help protect the habitat. Not finding DNA does not prove a species is absent.</p>
+    <p class="swap">eDNA can help scientists study ecosystems while reducing the need to catch animals. Scientists need to think carefully about where they collect samples and what the results can—and cannot—tell them.</p>
+      </div>
+  </details>
+
+  <!-- resources -->
+  <div class="res-head" id="resources">
+    <p class="eyebrow">Further reading</p>
+    <h2 style="color:var(--pale);font-size:1.9rem;font-weight:600;margin:0;letter-spacing:-.01em">Explore the science.</h2>
+  </div>
+  <div class="res-grid">
+    <a class="res" href="https://oceanexplorer.noaa.gov/technology/edna/" target="_blank" rel="noopener">
+      <span class="src">NOAA Ocean Service</span>
+      <h3>What is environmental DNA?</h3>
+      <p>How scientists detect which species are present from the DNA they shed into the water.</p>
+    </a>
+    <a class="res" href="https://www.mbari.org/know-your-ocean/what-is-environmental-dna-edna/" target="_blank" rel="noopener">
+      <span class="src">MBARI</span>
+      <h3>Sampling eDNA in the deep</h3>
+      <p>How environmental DNA helps scientists study marine life.</p>
+    </a>
+    <a class="res" href="https://www.mba.ac.uk/what-is-edna-and-why-is-it-a-game-changer-for-ocean-observation-and-conservation/" target="_blank" rel="noopener">
+      <span class="src">Marine Biological Association</span>
+      <h3>Why eDNA is a game-changer</h3>
+      <p>How a single bottle of seawater can reveal ocean life and help tackle climate change, pollution and overfishing.</p>
+    </a>
+  </div>
+
+  <!-- cross link -->
+  <div class="cross">
+    <h2>One ocean, many mysteries.</h2>
+    <p>eDNA provides clues to the life in an ecosystem. Seagrass and kelp show what it takes to keep them alive. Explore the other experiences.</p>
+    <div class="links">
+      <a class="btn ghost" href="https://seagrassstoriesforschools.oceanx.org/" target="_blank" rel="noopener">Seagrass Stories</a>
+      <a class="btn ghost" href="#" data-slot="kelp-url">I Am Kelp</a>
+    </div>
+  </div>
+
+  <!-- footer -->
+  <footer class="foot">
+    <span class="ox">OCEANX<br>EDUCATION</span>
+    <span>eDNA Detectives is a classroom learning experience about detecting hidden life in water from the traces it leaves.</span>
+  </footer>
+
+</div>
+
+<script>
+  (function(){
+    function openHash(){var h=location.hash; if(!h) return; var el=document.querySelector(h); if(el&&el.tagName==='DETAILS') el.open=true;}
+    window.addEventListener('hashchange',openHash); openHash();
+  })();
+</script>
+</body>
+</html>

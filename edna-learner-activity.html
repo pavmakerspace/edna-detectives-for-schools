@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>eDNA Detectives – Learner Activity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#041738;
+    --head:#002F6C;
+    --accent:#0072CE;
+    --accent2:#004EA8;
+    --body:#333F48;
+    --muted:#5B6770;
+    --line:#cdddee;
+    --panel:#EDF3FE;
+    --panel2:#E6EEF7;
+    --sans:"Zeist N2","Zeist",Arial,Helvetica,sans-serif;
+    --mono:"DM Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --display:"Big Shoulders Display","Zeist N2",Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#9fb3c2;color:var(--body);font-family:var(--sans);font-size:13px;line-height:1.48;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .toolbar{max-width:820px;margin:18px auto 10px;background:#fff;border-radius:10px;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 4px rgba(0,0,0,.12);border-left:4px solid var(--accent)}
+  .toolbar b{color:var(--head)}
+  .printbtn{background:var(--head);color:#fff;border:0;border-radius:8px;padding:11px 18px;font-size:.8rem;letter-spacing:.08em;font-weight:700;cursor:pointer;text-transform:uppercase;font-family:var(--mono)}
+  .page{max-width:820px;margin:0 auto 18px;background:#fff;padding:38px 46px;box-shadow:0 1px 6px rgba(0,0,0,.14)}
+
+  .mast{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;border-bottom:2px solid var(--head);padding-bottom:12px}
+  .ox{font-size:.68rem;letter-spacing:.14em;color:var(--accent);font-weight:800;line-height:1.1;font-family:var(--mono)}
+  .kick{font-size:.7rem;letter-spacing:.14em;color:var(--accent);font-weight:700;text-transform:uppercase;font-family:var(--mono)}
+  .tag{display:inline-block;margin-left:8px;font-size:.6rem;letter-spacing:.1em;border:1px solid var(--line);border-radius:999px;padding:2px 8px;color:var(--muted);font-family:var(--mono)}
+  h1{font-size:1.7rem;color:var(--head);margin:4px 0 0;letter-spacing:-.01em}
+  h1 small{display:block;font-size:.76rem;color:var(--accent);font-weight:700;letter-spacing:.08em;margin-top:3px;font-family:var(--mono)}
+  .names{display:flex;gap:24px;margin:11px 0 0}
+  .names .f{flex:1;font-size:.8rem;color:var(--muted)}
+  .names .line{border-bottom:1.5px solid var(--line);height:18px;margin-top:3px}
+
+  .task{margin-top:15px}
+  .stage-tag{font-size:.66rem;letter-spacing:.12em;color:var(--accent2);text-transform:uppercase;font-weight:800;font-family:var(--mono)}
+  .task h2{margin:2px 0 2px;color:var(--head);font-size:1.08rem}
+  .task .intro{margin:0 0 8px;color:var(--body);font-size:.86rem}
+
+  /* content panel: how eDNA works */
+  .learn{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:4px}
+  .learn .s{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:10px 12px}
+  .learn .n{font-family:var(--display);font-weight:700;color:var(--accent);font-size:1.05rem;line-height:1}
+  .learn h3{margin:3px 0 2px;color:var(--head);font-size:.88rem}
+  .learn p{margin:0;font-size:.76rem;color:var(--body);line-height:1.38}
+
+  /* sequencing */
+  .seq{list-style:none;margin:6px 0 0;padding:0}
+  .seq li{display:flex;align-items:center;gap:11px;border:1px solid var(--line);border-radius:8px;padding:7px 11px;margin-bottom:6px}
+  .seq .boxn{flex:0 0 auto;width:25px;height:25px;border:1.5px solid var(--accent);border-radius:6px}
+  .seq .t{font-size:.83rem}
+  .why{margin-top:8px;background:var(--panel);border-radius:8px;padding:9px 12px}
+  .why p{margin:0;font-size:.81rem;color:var(--head);font-weight:600}
+  .why .write{border-bottom:1.5px dotted var(--accent);height:20px;margin-top:4px}
+
+  /* case: clues + candidates */
+  .clues{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:5px 0 9px}
+  .clue{background:var(--panel2);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:8px 11px}
+  .clue .cl{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  .clue p{margin:2px 0 0;font-size:.82rem;color:var(--head);font-weight:600;line-height:1.35}
+  .cands{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .cand{display:flex;gap:9px;border:1px solid var(--line);border-radius:8px;padding:9px 11px}
+  .cand .mark{flex:0 0 auto;width:20px;height:20px;border:1.5px solid var(--muted);border-radius:50%;margin-top:1px}
+  .cand .nm{color:var(--head);font-weight:700;font-size:.86rem}
+  .cand .ds{color:var(--body);font-size:.75rem;line-height:1.32;margin-top:2px}
+  .solve{margin-top:9px;background:var(--panel);border-radius:8px;padding:10px 13px}
+  .solve p{margin:0 0 5px;font-size:.82rem}
+  .solve p:last-child{margin-bottom:0}
+  .solve .u{display:inline-block;min-width:135px;border-bottom:1.5px dotted var(--accent);height:15px;vertical-align:bottom;margin:0 2px}
+
+  /* yes / no table */
+  .yn{width:100%;border-collapse:collapse;margin-top:5px}
+  .yn th,.yn td{border:1px solid var(--line);padding:7px 11px;font-size:.82rem;text-align:left}
+  .yn th{background:var(--panel);color:var(--head);font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase}
+  .yn th.c,.yn td.c{text-align:center;width:54px}
+  .box{display:inline-block;width:15px;height:15px;border:1.5px solid var(--accent);border-radius:4px;flex:0 0 auto}
+
+  /* Task 4: Habitat Survey Brief */
+  .brief-step{margin-top:11px}
+  .brief-lab{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 5px}
+  .hab-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .hab-opt{display:flex;align-items:flex-start;gap:8px;border:1px solid var(--line);border-radius:8px;padding:7px 10px;background:#fff}
+  .hab-opt.full{grid-column:1 / -1}
+  .hab-opt .box{margin-top:2px}
+  .hab-opt b{display:block;color:var(--head);font-size:.82rem;line-height:1.25}
+  .hab-opt span{display:block;color:var(--muted);font-size:.73rem;line-height:1.3;margin-top:1px}
+
+  .qbox{border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin-top:8px}
+  .qbox .qp{margin:0;color:var(--head);font-weight:600;font-size:.82rem}
+  .write{border-bottom:1.5px dotted var(--line);height:21px;margin-top:5px}
+
+  .lim-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;margin:6px 0 6px}
+  .lim{display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--body)}
+
+  .foot{display:flex;justify-content:space-between;color:var(--muted);font-size:.7rem;letter-spacing:.06em;border-top:1px solid var(--line);margin-top:18px;padding-top:10px;font-family:var(--mono)}
+
+  /* Brand fix: Section Tags / Kickers are Zeist N2 Bold (uppercase), not DM Mono. DM Mono kept only for the small metadata pill and footer. */
+  .ox,.kick,h1 small,.stage-tag,.cl,.yn th,.brief-lab{font-family:var(--sans)!important;font-weight:700}
+  @page{size:A4;margin:10mm}
+  @media print{
+    body{background:#fff;font-size:10.3px}
+    .toolbar{display:none}
+    .page{box-shadow:none;margin:0;padding:0;max-width:none}
+    .page.p2{page-break-before:always}
+    .task,.seq li,.cand,.learn .s,.qbox,.hab-opt{break-inside:avoid}
+    .task{margin-top:11px}
+    .task .intro{margin-bottom:6px}
+    .learn{gap:7px}
+    .learn .s{padding:8px 10px}
+    .seq li{padding:5px 10px;margin-bottom:5px}
+    .clues{gap:7px;margin:5px 0 7px}
+    .clue{padding:7px 10px}
+    .cands{gap:6px}
+    .cand{padding:7px 10px}
+    .solve{padding:8px 11px;margin-top:7px}
+  }
+</style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <span><b>Learner Activity:</b> formatted for A4 printing or PDF export.</span>
+    <button class="printbtn" onclick="window.print()">Print / Save to PDF</button>
+  </div>
+
+  <!-- PAGE 1 -->
+  <div class="page">
+    <div class="mast">
+      <div class="ox">OCEANX<br>EDUCATION</div>
+      <div style="flex:1">
+        <div class="kick">Learner Activity <span class="tag">A4 Printable Worksheet</span></div>
+        <h1>eDNA Detectives<small>YOUR CASE FILE</small></h1>
+      </div>
+    </div>
+    <div class="names">
+      <div class="f">Name:<div class="line"></div></div>
+      <div class="f">Class:<div class="line"></div></div>
+    </div>
+
+    <!-- EXPLORE: content + collection process -->
+    <div class="task">
+      <div class="stage-tag">Explore: How eDNA works</div>
+      <h2>Reading the clues life leaves behind</h2>
+      <p class="intro">Living things leave tiny pieces of DNA in their surroundings through skin, mucus, waste and other material. This is <b>environmental DNA (eDNA)</b>. Scientists can study a sample and compare its DNA with a library of DNA from known species (types of living things). A match can be a clue to life they cannot see.</p>
+      <div class="learn">
+        <div class="s"><div class="n">01</div><h3>Shed</h3><p>An animal leaves traces of its DNA in the water and on the bed below.</p></div>
+        <div class="s"><div class="n">02</div><h3>Collect</h3><p>Scientists collect a sample of water or mud, noting its depth and place.</p></div>
+        <div class="s"><div class="n">03</div><h3>Read</h3><p>They separate the DNA from the sample and compare it with DNA in a library of known species.</p></div>
+      </div>
+    </div>
+
+    <!-- collection process: sequencing -->
+    <div class="task">
+      <div class="stage-tag">Task 1: The process of collection</div>
+      <h2>Put an eDNA survey in order</h2><p>Watch <a href="https://www.youtube.com/watch?v=iMCZAcLaHKE">On Mission: eDNA</a>. What do you notice about how a sample is collected or handled? Use what you noticed to explain your order to a partner.</p>
+      <p class="intro">Number these steps from <b>1</b> to <b>4</b> in the order a scientist would do them.</p>
+      <ul class="seq">
+        <li><span class="boxn"></span><span class="t">In the lab, read the DNA and match it to a library of known species.</span></li>
+        <li><span class="boxn"></span><span class="t">An animal sheds DNA into the water and mud through skin, mucus and waste.</span></li>
+        <li><span class="boxn"></span><span class="t">Separate the DNA from the sample.</span></li>
+        <li><span class="boxn"></span><span class="t">Collect a sample of water or mud at a chosen depth and place.</span></li>
+      </ul>
+    </div>
+
+    <!-- INVESTIGATE: deduction case -->
+    <div class="task">
+      <div class="stage-tag">Task 2: Crack the case</div>
+      <h2>Warm-up: which creature fits?</h2><p>This puzzle lets you practise putting clues together. To identify eDNA, scientists study DNA and compare it with a library of known DNA, rather than relying only on what a trace looks like.</p>
+      <p class="intro">Use <b>both</b> clues. Cross out the creatures that do not fit, and circle the one that does.</p>
+      <div class="clues">
+        <div class="clue"><div class="cl">Clue 1: habitat</div><p>It lives in the deep, beyond the reach of sunlight.</p></div>
+        <div class="clue"><div class="cl">Clue 2: trace</div><p>The DNA came from a sticky, glowing cloud released to distract an animal that was trying to attack.</p></div>
+      </div>
+      <div class="cands">
+        <div class="cand"><span class="mark"></span><div><div class="nm">Yellowfin tuna</div><div class="ds">Fast fish of warm, sunlit surface waters.</div></div></div>
+        <div class="cand"><span class="mark"></span><div><div class="nm">Green sea turtle</div><div class="ds">Grazes underwater grass in shallow, sunlit coasts.</div></div></div>
+        <div class="cand"><span class="mark"></span><div><div class="nm">Anglerfish</div><div class="ds">Deep-sea fish that hunts using a glowing bait on its head.</div></div></div>
+        <div class="cand"><span class="mark"></span><div><div class="nm">Vampire squid</div><div class="ds">Lives in the deep; releases glowing mucus to startle attackers.</div></div></div>
+      </div>
+      <div class="solve">
+        <p>Clue 1 rules out <span class="u"></span> and <span class="u"></span>.</p>
+        <p>Clue 2 rules out <span class="u"></span>.</p>
+        <p>So the creature is <span class="u"></span>. <b>It takes both clues together.</b></p>
+      </div>
+    </div>
+
+    <div class="foot"><span>OceanX Education</span><span>eDNA Detectives // Page 1</span></div>
+  </div>
+
+  <!-- PAGE 2 -->
+  <div class="page p2">
+
+    <!-- REFLECT: yes/no -->
+    <div class="task" style="margin-top:0">
+      <div class="stage-tag">Task 3: The evidence challenge</div>
+      <h2>How sure can you be?</h2><p>Watch <a href="https://www.youtube.com/watch?v=C0H8MNi3t-c">What is eDNA</a>. How does finding a DNA trace differ from seeing an animal? Discuss your answer before considering the case below.</p>
+      <p>Scientists collect a water sample downstream (in the direction the water flows) from a protected habitat. Its DNA matches a rare fish in their DNA library. A facility upstream also uses that fish as food. For this case, assume the DNA match is correct.</p>
+      <p>Label each statement <b>S</b> (the evidence supports it), <b>P</b> (it could explain the result), or <b>N</b> (the evidence does not tell us).</p>
+      <p>___ DNA matching the fish was detected. &nbsp; ___ A live fish is in the protected habitat now.<br>___ The DNA could have come from food. &nbsp; ___ Exactly three fish live in the habitat.</p>
+      <p>Choose an explanation that could fit the evidence. How sure are you: not very sure, somewhat sure, or very sure? Why?</p><div class="write"></div><div class="write"></div>
+      <p>What other sample or check could help you work out which explanation is right?</p><div class="write"></div>
+    </div>
+
+    <!-- CREATE: Habitat Survey Brief -->
+    <div class="task">
+      <div class="stage-tag">Task 4: eDNA in the real world</div>
+      <h2>Your Habitat Survey Brief</h2><p>Watch <a href="https://www.youtube.com/watch?v=j-yh_srFEMk">Citizens of the Sea</a>. Why might collecting samples from different places be useful? Use your idea to explain where you would sample in question 2.</p>
+      <p class="intro">Work in groups of 2–3. Plan how scientists could use eDNA to check on a real habitat: either local fresh water or an ocean habitat.</p>
+
+      <div class="brief-step">
+        <div class="brief-lab">1. Pick one habitat (tick one)</div>
+        <div class="hab-grid">
+          <div class="hab-opt full"><span class="box"></span><div><b>A local river, lake or pond</b><span>Fresh water near your school, town or region.</span></div></div>
+          <div class="hab-opt"><span class="box"></span><div><b>Coral reef</b><span>Warm, shallow rock gardens full of sea life.</span></div></div>
+          <div class="hab-opt"><span class="box"></span><div><b>Mangrove</b><span>Coastal trees with roots in salty tidal water.</span></div></div>
+          <div class="hab-opt"><span class="box"></span><div><b>Seagrass meadow</b><span>Underwater flowering plants along shallow coasts.</span></div></div>
+          <div class="hab-opt"><span class="box"></span><div><b>The deep sea</b><span>Cold, dark ocean waters far below sunlight.</span></div></div>
+        </div>
+      </div>
+
+      <div class="qbox">
+        <p class="qp">2. What it could find. Which species might you investigate? Where and when would you collect samples, and why?</p>
+        <div class="write"></div>
+        <div class="write"></div>
+      </div>
+
+      <div class="qbox">
+        <p class="qp">3. What it can't tell. Choose one thing the sample cannot tell you for sure. How could you find out more?</p>
+        <div class="lim-grid">
+          <div class="lim"><span class="box"></span>How many animals live there</div>
+          <div class="lim"><span class="box"></span>Exactly where an animal is now</div>
+          <div class="lim"><span class="box"></span>The exact time it swam past</div>
+          <div class="lim"><span class="box"></span>A species not yet in the DNA library</div>
+        </div>
+        <div class="write"></div>
+      </div>
+
+      <div class="qbox">
+        <p class="qp">4. Why it matters. How could your findings help protect this habitat? What would you do if you found the species’ DNA? What if you did not? Prepare a one-minute explanation for the class.</p>
+        <div class="write"></div>
+        <div class="write"></div>
+      </div>
+    </div>
+
+    <div class="foot"><span>OceanX Education</span><span>eDNA Detectives // Page 2</span></div>
+  </div>
+
+</body>
+</html>
