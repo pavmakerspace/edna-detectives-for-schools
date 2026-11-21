@@ -7,124 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink:#041738;        /* OceanX Blue */
-    --head:#002F6C;       /* Twilight Blue */
-    --accent:#0072CE;     /* Shoal Blue */
-    --accent2:#004EA8;    /* Sunlit Blue */
-    --body:#333F48;       /* Trench Gray */
-    --muted:#5B6770;      /* Ridge Gray */
-    --line:#cdddee;
-    --panel:#EDF3FE;
-    --panel2:#E6EEF7;
-    --sans:"Zeist N2","Zeist",Arial,Helvetica,sans-serif;
-    --mono:"DM Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
-    --display:"Big Shoulders Display","Zeist N2",Arial,sans-serif;
-  }
-  /* Brand fix: Section Tags / Kickers / section headings are Zeist N2 Bold, not DM Mono. */
-  .kick,h2.sec,.cols .lab,.two h3,.stage-tag,.note h4,.after h4,.ox,.fsub{font-family:var(--sans)!important;font-weight:700}
-  .row-head .n{font-family:var(--display)!important;font-weight:700}
-  *{box-sizing:border-box}
-  body{margin:0;background:#9fb3c2;color:var(--body);font-family:var(--sans);font-size:13.5px;line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .toolbar{max-width:820px;margin:18px auto 10px;background:#fff;border-radius:10px;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 4px rgba(0,0,0,.12);border-left:4px solid var(--accent)}
-  .toolbar span{color:var(--ink)}
-  .toolbar b{color:var(--head)}
-  .printbtn{background:var(--head);color:#fff;border:0;border-radius:8px;padding:11px 18px;font-size:.8rem;letter-spacing:.08em;font-weight:700;cursor:pointer;text-transform:uppercase;font-family:var(--mono)}
-  .page{max-width:820px;margin:0 auto 18px;background:#fff;padding:42px 48px;box-shadow:0 1px 6px rgba(0,0,0,.14)}
-
-  .mast{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;border-bottom:2px solid var(--head);padding-bottom:16px}
-  .ox{font-size:.68rem;letter-spacing:.14em;color:var(--accent);font-weight:800;line-height:1.1}
-  .kick{font-size:.72rem;letter-spacing:.14em;color:var(--accent);font-weight:700;text-transform:uppercase}
-  .tag{display:inline-block;margin-left:8px;font-size:.62rem;letter-spacing:.1em;border:1px solid var(--line);border-radius:999px;padding:3px 9px;color:var(--muted);vertical-align:middle}
-  h1{font-size:1.85rem;color:var(--head);margin:6px 0 0;letter-spacing:-.01em}
-  .meta{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
-  .meta span{font-size:.71rem;border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:var(--ink);background:var(--panel)}
-
-  h2.sec{font-size:.74rem;letter-spacing:.14em;color:var(--head);text-transform:uppercase;font-weight:800;margin:20px 0 7px}
-  .dq{border-left:4px solid var(--accent);background:var(--panel);border-radius:0 8px 8px 0;padding:12px 16px;margin:4px 0 0}
-  .dq p{margin:0;font-size:1.18rem;color:var(--head);font-weight:600}
-  .intent{margin:6px 0 0}
-  ul.out{list-style:none;margin:6px 0 0;padding:0}
-  ul.out li{position:relative;padding:4px 0 4px 18px}
-  ul.out li::before{content:"";position:absolute;left:0;top:.9em;width:6px;height:6px;border-radius:50%;background:var(--accent)}
-  ul.out b{color:var(--head)}
-
-  .journey{display:flex;align-items:stretch;gap:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:6px 0 0}
-  .journey .j{flex:1;padding:11px 10px;text-align:center}
-  .journey .j + .j{border-left:1px solid var(--line)}
-  .journey .jt{color:var(--head);font-weight:700;font-size:.9rem}
-  .journey .js{color:var(--muted);font-size:.76rem;margin-top:2px}
-
-  .two{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:6px}
-  .two h2.sec{margin-top:16px}
-  .two p{margin:0 0 8px;font-size:.86rem}
-  .two p:last-child{margin-bottom:0}
-
-  .access-box{background:var(--panel);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:10px 13px;margin-top:10px}
-  .access-box b{color:var(--head)}
-  .access-box p{margin:0;font-size:.82rem}
-
-  .foot{display:flex;justify-content:space-between;color:var(--muted);font-size:.72rem;letter-spacing:.06em;border-top:1px solid var(--line);margin-top:24px;padding-top:10px;font-family:var(--mono)}
-
-  /* page 2 facilitation table */
-  .ftitle{font-size:1.45rem;color:var(--head);margin:0 0 2px;letter-spacing:-.01em}
-  .fsub{color:var(--accent);font-weight:700;font-size:.8rem;letter-spacing:.06em;margin:0 0 12px}
-  .row{border:1px solid var(--line);border-radius:10px;margin-top:11px;overflow:hidden}
-  .row-head{display:flex;align-items:center;gap:10px;background:var(--panel);padding:8px 14px;border-bottom:1px solid var(--line)}
-  .row-head .n{color:var(--head);font-weight:800;font-size:1rem}
-  .row-head .d{margin-left:auto;font-size:.66rem;letter-spacing:.08em;color:var(--accent);border:1px solid var(--line);background:#fff;border-radius:999px;padding:2px 9px;text-transform:uppercase;font-weight:700;font-family:var(--mono)}
-  .cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0}
-  .cols .c{padding:10px 13px}
-  .cols .c + .c{border-left:1px solid var(--line)}
-  .cols .lab{font-size:.65rem;letter-spacing:.08em;color:var(--accent2);text-transform:uppercase;font-weight:700;margin:0 0 4px}
-  .cols p{margin:0;font-size:.8rem;line-height:1.42}
-
-  .notes{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
-  .note{background:var(--panel);border-radius:10px;padding:12px 14px;border-left:3px solid var(--accent)}
-  .note h4{margin:0 0 4px;color:var(--head);font-size:.8rem}
-  .note p{margin:0;font-size:.78rem;color:var(--body);line-height:1.42}
-  .curr{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-top:5px}
-  .curr p{margin:0 0 5px;font-size:.81rem}
-  .curr p:last-child{margin-bottom:0}
-  .curr b{color:var(--head)}
-  .after{background:var(--panel2);border-radius:10px;padding:11px 14px;margin-top:12px}
-  .after h4{margin:0 0 4px;color:var(--head);font-size:.8rem}
-  .after p{margin:0;font-size:.79rem;line-height:1.42}
-
-  @page{size:A4;margin:12mm}
-  @media print{
-    body{background:#fff;font-size:10.4px;line-height:1.4}
-    .toolbar{display:none}
-    .page{box-shadow:none;margin:0;padding:0;max-width:none}
-    .page.two-page{page-break-before:always}
-    .row,.note,.after{break-inside:avoid}
-    /* compress so each page fits one A4 */
-    .mast{padding-bottom:8px}
-    h1{font-size:1.45rem;margin:3px 0 0}
-    h2.sec{margin:11px 0 5px}
-    .dq{padding:10px 14px}
-    .dq p{font-size:1.08rem}
-    .intent{margin-top:4px}
-    ul.out li{padding:3px 0 3px 18px}
-    .journey{margin-top:5px}
-    .journey .j{padding:8px 10px}
-    .curr{padding:9px 13px;margin-top:4px}
-    .curr p{margin-bottom:4px}
-    .two{gap:18px;margin-top:5px}
-    .two p{margin-bottom:6px}
-    .access-box{padding:9px 12px;margin-top:8px}
-    .foot{margin-top:12px;padding-top:8px}
-    .ftitle{font-size:1.3rem}
-    .fsub{margin-bottom:9px}
-    .row{margin-top:8px}
-    .row-head{padding:7px 14px}
-    .cols .c{padding:8px 12px}
-    .notes{margin-top:10px;gap:12px}
-    .note{padding:10px 13px}
-    .after{padding:9px 13px;margin-top:9px}
-  }
-</style>
+<link rel="stylesheet" href="educator.css">
 </head>
 <body>
 
@@ -144,7 +27,7 @@
         <h1>eDNA Detectives</h1>
       </div>
       <div class="meta">
-        <span>High school</span><span>60–75 minutes</span><span>Groups of 2–3</span>
+        <span>Ages 12–14</span><span>60–75 minutes</span><span>Groups of 2–3</span>
       </div>
     </div>
 
@@ -194,7 +77,7 @@
       </div>
     </div>
 
-    <div class="foot"><span>OceanX Education</span><span>eDNA Detectives // Page 1</span></div>
+    <div class="foot"><span>OceanX Education</span><span>eDNA Detectives</span></div>
   </div>
 
   <!-- PAGE 2 -->
@@ -264,7 +147,7 @@
       <p><b>Preparation and access:</b> Print one worksheet per learner or pair; provide pens. Preview the clips and game and check captions. Play each clip, or a relevant excerpt, before its linked question: On Mission for Explore, What is eDNA for Reflect, and Citizens of the Sea for Create. Check running times in advance and select excerpts to fit the 60-minute plan; allow extra time for full clips and discussion. No screen: read the worksheet introduction and use the Investigate activity. Students may discuss or dictate answers. Sources for background: <a href="https://oceanexplorer.noaa.gov/technology/edna/">NOAA: environmental DNA</a>; <a href="https://www.mbari.org/know-your-ocean/what-is-environmental-dna-edna/">MBARI: eDNA</a>.</p>
     </div>
 
-    <div class="foot"><span>OceanX Education</span><span>eDNA Detectives // Page 2</span></div>
+    <div class="foot"><span>OceanX Education</span><span>eDNA Detectives</span></div>
   </div>
 
 </body>
