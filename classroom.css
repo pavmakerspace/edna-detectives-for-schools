@@ -264,3 +264,7 @@ a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid #ff
 .pip{font-family:Arial,Helvetica,sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--pale)}
 .pip b{font-family:Arial,Helvetica,sans-serif;font-size:.66rem;font-weight:600;letter-spacing:0}
 @media(max-width:620px){.nav{gap:20px;font-size:.7rem}.pip{font-size:.68rem;letter-spacing:.07em}}
+
+/* Official OceanX Education logo */
+.oceanx-logo{display:block;width:128px;height:auto;max-width:100%;flex-shrink:0}
+@media (max-width:480px){.oceanx-logo{width:105px}}
